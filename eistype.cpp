@@ -49,7 +49,6 @@ eis::Range eis::Range::fromString(std::string str, size_t count)
 		if(tokens.size() > 2)
 			throw std::invalid_argument("Multiple range counts");
 		tokens.back() = lastTokens[0];
-		tokens.back().pop();
 		count = std::stoull(lastTokens[1]);
 	}
 
@@ -101,7 +100,7 @@ std::vector<Range> eis::Range::rangesFromParamString(const std::string& paramStr
 	return ranges;
 }
 
-std::string eis::Range::getString() const
+std::string eis::Range::getString(bool withCount) const
 {
 	std::stringstream ss;
 
@@ -111,6 +110,9 @@ std::string eis::Range::getString() const
 		ss<<'~'<<end;
 		if(log)
 			ss<<'L';
+
+		if(withCount)
+			ss<<":"<<count;
 	}
 
 	return ss.str();

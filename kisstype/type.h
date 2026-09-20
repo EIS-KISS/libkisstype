@@ -192,7 +192,7 @@ public:
 	*
 	* @return The string.
 	*/
-	std::string getString() const;
+	std::string getString(bool withCount = false) const;
 
 	/**
 	* @brief Checks if the values of this range are sane/
