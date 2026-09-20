@@ -43,10 +43,20 @@ eis::Range eis::Range::fromString(std::string str, size_t count)
 	std::vector<std::string> tokens = tokenize(str, '~');
 	eis::Range out;
 
-	if(str.back() == 'l' || str.back() == 'L')
+	std::vector<std::string> lastTokens = tokenize(tokens.back(), ':');
+	if(lastTokens.size() > 1)
+	{
+		if(tokens.size() > 2)
+			throw std::invalid_argument("Multiple range counts");
+		tokens.back() = lastTokens[0];
+		tokens.back().pop();
+		count = std::stoull(lastTokens[1]);
+	}
+
+	if(tokens.back().back() == 'l' || tokens.back().back() == 'L')
 	{
 		log = true;
-		str.pop_back();
+		tokens.back().pop_back();
 	}
 
 	try
@@ -59,7 +69,7 @@ eis::Range eis::Range::fromString(std::string str, size_t count)
 		{
 			out = Range(std::stod(tokens[0]), std::stod(tokens[1]), count, log);
 			if(tokens.size() > 2)
-				throw std::invalid_argument("");
+				throw std::invalid_argument("Range with two end points");
 		}
 
 	}

@@ -216,7 +216,7 @@ public:
 	* @throw std::invalid_argument when the string syntax is incorrect.
 	* @return The range that was parsed from the string.
 	*/
-	[[nodiscard]] static Range fromString(std::string str, size_t count);
+	[[nodiscard]] static Range fromString(std::string str, size_t count = 1);
 
 	/**
 	* @brief This function creates a vector ranges from the parseable parameter array string.
