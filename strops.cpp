@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace eis
+namespace kisstype
 {
 
 std::vector<std::string> tokenize(const std::string& str, const char delim, const char ignBracketStart, const char ignBracketEnd, const char escapeChar)

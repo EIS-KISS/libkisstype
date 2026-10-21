@@ -195,7 +195,7 @@ Spectra Spectra::loadHeaderFromStream(std::istream& stream)
 	std::string line;
 	std::getline(stream, line);
 
-	std::vector<std::string> tokens = tokenizeBinaryIgnore(line, ',', '"', '\\');
+	std::vector<std::string> tokens = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
 	VersionFixed fileVersion;
 
 	if(tokens.size() != 2 || tokens[0] != F_MAGIC)
@@ -204,7 +204,7 @@ Spectra Spectra::loadHeaderFromStream(std::istream& stream)
 	}
 	else
 	{
-		std::vector<std::string> versionTokens = tokenize(tokens[1], '.');
+		std::vector<std::string> versionTokens = kisstype::tokenize(tokens[1], '.');
 		if(versionTokens.size() != 3)
 			throw file_error("could not load file version from file");
 		fileVersion.major = std::stoi(versionTokens[0]);
@@ -217,20 +217,20 @@ Spectra Spectra::loadHeaderFromStream(std::istream& stream)
 	if(fileVersion.minor == F_VERSION_MINOR)
 	{
 		std::getline(stream, line);
-		stripQuotes(line);
+		kisstype::stripQuotes(line);
 		out.model = line == "None" ? "" : line;
 		std::getline(stream, line);
-		stripQuotes(line);
+		kisstype::stripQuotes(line);
 		out.headerDescription = line == "None" ? "" : line;
 		std::getline(stream, line);
-		stripQuotes(line);
+		kisstype::stripQuotes(line);
 		out.header = line == "None" ? "" : line;
 	}
 	else
 	{
 		std::getline(stream, line);
-		tokens = tokenizeBinaryIgnore(line, ',', '"', '\\');
-		stripQuotes(tokens[0]);
+		tokens = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
+		kisstype::stripQuotes(tokens[0]);
 		out.model = tokens[0];
 		line.erase(line.begin(), line.begin()+tokens.size());
 		out.header = line;
@@ -245,18 +245,18 @@ Spectra Spectra::loadHeaderFromStream(std::istream& stream)
 		if(line.starts_with("labelsNames"))
 		{
 			std::getline(stream, line);
-			out.labelNames = tokenizeBinaryIgnore(line, ',', '"', '\\');
+			out.labelNames = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
 			for(std::string& label : out.labelNames)
 			{
-				label = stripWhitespace(label);
-				stripQuotes(label);
+				label = kisstype::stripWhitespace(label);
+				kisstype::stripQuotes(label);
 			}
 			continue;
 		}
 		else if(line.starts_with("labels"))
 		{
 			std::getline(stream, line);
-			std::vector<std::string> tokens = tokenizeBinaryIgnore(line, ',', '"', '\\');
+			std::vector<std::string> tokens = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
 			for(const std::string& token : tokens)
 				out.labels.push_back(std::stod(token));
 			continue;
@@ -279,7 +279,7 @@ Spectra Spectra::loadFromStream(std::istream& stream, bool removeDuplicates)
 	Spectra out;
 	std::string line;
 	std::getline(stream, line);
-	std::vector<std::string> tokens = tokenizeBinaryIgnore(line, ',', '"', '\\');
+	std::vector<std::string> tokens = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
 	VersionFixed fileVersion;
 
 	if(tokens.size() != 2 || tokens[0] != F_MAGIC)
@@ -288,7 +288,7 @@ Spectra Spectra::loadFromStream(std::istream& stream, bool removeDuplicates)
 	}
 	else
 	{
-		std::vector<std::string> versionTokens = tokenize(tokens[1], '.');
+		std::vector<std::string> versionTokens = kisstype::tokenize(tokens[1], '.');
 		if(versionTokens.size() != 3)
 			throw file_error("could not load file version from file");
 		fileVersion.major = std::stoi(versionTokens[0]);
@@ -301,20 +301,20 @@ Spectra Spectra::loadFromStream(std::istream& stream, bool removeDuplicates)
 	if(fileVersion.minor == F_VERSION_MINOR)
 	{
 		std::getline(stream, line);
-		stripQuotes(line);
+		kisstype::stripQuotes(line);
 		out.model = line == "None" ? "" : line;
 		std::getline(stream, line);
-		stripQuotes(line);
+		kisstype::stripQuotes(line);
 		out.headerDescription = line == "None" ? "" : line;
 		std::getline(stream, line);
-		stripQuotes(line);
+		kisstype::stripQuotes(line);
 		out.header = line == "None" ? "" : line;
 	}
 	else
 	{
 		std::getline(stream, line);
-		tokens = tokenizeBinaryIgnore(line, ',', '"', '\\');
-		stripQuotes(tokens[0]);
+		tokens = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
+		kisstype::stripQuotes(tokens[0]);
 		out.model = tokens[0];
 		line.erase(line.begin(), line.begin()+tokens.size());
 		out.header = line;
@@ -329,18 +329,18 @@ Spectra Spectra::loadFromStream(std::istream& stream, bool removeDuplicates)
 		if(line.starts_with("labelsNames"))
 		{
 			std::getline(stream, line);
-			out.labelNames = tokenizeBinaryIgnore(line, ',', '"', '\\');
+			out.labelNames = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
 			for(std::string& label : out.labelNames)
 			{
-				label = stripWhitespace(label);
-				stripQuotes(label);
+				label = kisstype::stripWhitespace(label);
+				kisstype::stripQuotes(label);
 			}
 			continue;
 		}
 		else if(line.starts_with("labels"))
 		{
 			std::getline(stream, line);
-			std::vector<std::string> tokens = tokenizeBinaryIgnore(line, ',', '"', '\\');
+			std::vector<std::string> tokens = kisstype::tokenizeBinaryIgnore(line, ',', '"', '\\');
 			for(const std::string& token : tokens)
 				out.labels.push_back(std::stod(token));
 			continue;
@@ -349,7 +349,7 @@ Spectra Spectra::loadFromStream(std::istream& stream, bool removeDuplicates)
 		{
 			continue;
 		}
-		tokens = tokenize(line, ',');
+		tokens = kisstype::tokenize(line, ',');
 		if(tokens.size() != 3)
 			throw file_error("invalid line: " + line);
 

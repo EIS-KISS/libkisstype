@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace eis
+namespace kisstype
 {
 
 std::vector<std::string> tokenize(const std::string& str, const char delim = ' ', const char ignBracketStart = '\0',

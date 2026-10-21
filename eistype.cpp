@@ -40,10 +40,10 @@ std::vector<fvalue> eis::Range::getRangeVector() const
 eis::Range eis::Range::fromString(std::string str, size_t count)
 {
 	bool log = false;
-	std::vector<std::string> tokens = tokenize(str, '~');
+	std::vector<std::string> tokens = kisstype::tokenize(str, '~');
 	eis::Range out;
 
-	std::vector<std::string> lastTokens = tokenize(tokens.back(), ':');
+	std::vector<std::string> lastTokens = kisstype::tokenize(tokens.back(), ':');
 	if(lastTokens.size() > 1)
 	{
 		if(tokens.size() > 2)
@@ -82,7 +82,7 @@ eis::Range eis::Range::fromString(std::string str, size_t count)
 
 std::vector<Range> eis::Range::rangesFromParamString(const std::string& paramStr, size_t count)
 {
-	std::vector<std::string> tokens = tokenize(paramStr, ',');
+	std::vector<std::string> tokens = kisstype::tokenize(paramStr, ',');
 
 	std::vector<Range> ranges(tokens.size());
 	for(size_t i = 0; i < tokens.size(); ++i)
